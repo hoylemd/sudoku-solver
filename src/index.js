@@ -1,12 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class RootComponent extends React.Component {
+  constructor(props) {
+    super(props);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <span>Hello, World!</span>
+    )
+  }
+}
+RootComponent.propTypes = {
+};
+
+ReactDOM.render(
+    <RootComponent />,
+    document.getElementById('root')
+);
