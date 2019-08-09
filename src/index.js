@@ -30,7 +30,7 @@ class Square extends React.Component {
     this.state = {
       value: props.value || 0,
       locked: props.locked || false,
-      notes: [null, true, false, true, false, true, false, true, false, true]
+      notes: [null, false, false, false, false, false, false, false, false, false]
     };
   }
 
@@ -61,6 +61,24 @@ class Square extends React.Component {
       this.makeNote(8),
       this.makeNote(9)
     ];
+  }
+
+  setNote(n) {
+    let notes = this.state.notes.slice();
+    notes[n] = true;
+
+    this.setState({
+      notes: notes
+    });
+  }
+
+  clearNote(n) {
+    let notes = this.state.notes.slice();
+    notes[n] = false;
+
+    this.setState({
+      notes: notes
+    });
   }
 
   makeClassName() {
