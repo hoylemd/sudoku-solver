@@ -9,6 +9,18 @@ solver algo:
 for each number:
 */
 
+let testBoard = [
+  9,7,0,0,4,1,0,0,6,
+  0,0,0,0,7,0,5,0,9,
+  0,0,6,0,0,0,0,8,1,
+  0,0,0,2,8,7,4,0,0,
+  7,6,3,0,1,5,8,0,0,
+  2,8,4,0,3,0,1,5,7,
+  0,4,0,0,0,2,9,7,8,
+  0,2,5,7,9,8,0,1,4,
+  8,0,7,0,6,0,3,0,0
+];
+
 let NBSP = '\u00A0';
 
 class Square extends React.Component {
@@ -80,18 +92,19 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
 
+    let default_grid = [
+      9,0,0,0,0,0,0,0,0,
+      0,8,0,0,0,0,0,0,0,
+      0,0,7,0,0,0,0,0,0,
+      0,0,0,6,0,0,0,0,0,
+      0,0,0,0,5,0,0,0,0,
+      0,0,0,0,0,4,0,0,0,
+      0,0,0,0,0,0,3,0,0,
+      0,0,0,0,0,0,0,2,0,
+      0,0,0,0,0,0,0,0,1
+    ];
     this.state = {
-      grid: [
-        9,0,0,0,0,0,0,0,0,
-        0,8,0,0,0,0,0,0,0,
-        0,0,7,0,0,0,0,0,0,
-        0,0,0,6,0,0,0,0,0,
-        0,0,0,0,5,0,0,0,0,
-        0,0,0,0,0,4,0,0,0,
-        0,0,0,0,0,0,3,0,0,
-        0,0,0,0,0,0,0,2,0,
-        0,0,0,0,0,0,0,0,1
-      ]
+      grid: this.props.grid || default_grid
     };
   }
 
@@ -136,7 +149,7 @@ class Board extends React.Component {
   }
 }
 Board.propTypes = {
-
+  grid: PropTypes.array
 };
 
 class SudokuGame extends React.Component {
@@ -150,7 +163,7 @@ class SudokuGame extends React.Component {
     return (
       <div className='game'>
         <h3>Sudoku</h3>
-        <Board />
+        <Board grid={testBoard}/>
       </div>
     );
   }
