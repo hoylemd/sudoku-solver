@@ -52,8 +52,11 @@ class Square extends React.Component {
   }
 
   render() {
-    let classNames = `square ${this.state.locked ? 'locked' : ''}`;
     let content;
+    let classNames = `square ${this.state.locked ? 'locked' : ''}`;
+    if (this.props.column === 2 || this.props.column == 5) {
+      classNames += ' nonant-border';
+    }
 
     if (this.state.value) {
       content = this.makeNumber();
@@ -66,7 +69,8 @@ class Square extends React.Component {
 }
 Square.propTypes = {
   value: PropTypes.number,
-  locked: PropTypes.bool
+  locked: PropTypes.bool,
+  column: PropTypes.number
 };
 Square.defaultProps = {
   style: ''
@@ -91,17 +95,23 @@ class Board extends React.Component {
     };
   }
 
-  makeSquare(value) {
+  makeSquare(value, number) {
     let style = value ? 'locked' : '';
 
     return  (
-      <Square style={style} value={value}/>
+      <Square style={style} value={value} column={number}/>
     );
   }
 
-  makeRow(squares) {
+  makeRow(squares, number) {
+    let className = 'board-row';
+
+    if (number === 2 || number === 5) {
+      className += ' nonant-border';
+    }
+
     return (
-      <div className="board-row">
+      <div className={className}>
         {squares}
       </div>
     );
@@ -113,9 +123,9 @@ class Board extends React.Component {
     for (i = 0; i < 9; i += 1) {
       let squares = [];
       for (j = 0; j < 9; j += 1) {
-        squares.push(this.makeSquare(this.state.grid[i * 9 + j]));
+        squares.push(this.makeSquare(this.state.grid[i * 9 + j], j));
       }
-      rows.push(this.makeRow(squares));
+      rows.push(this.makeRow(squares, i));
     }
 
     return (

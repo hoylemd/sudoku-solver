@@ -4,7 +4,7 @@ The purpose of this app is twofold: for Mike to learn ReactJS and practice his f
 
 ## TODO
 
-- [ ] separate the nonants visually
+- [x] separate the nonants visually
 - [ ] import board state
 - [ ] select square + highlights
 - [ ] highlight all of #
