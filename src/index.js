@@ -45,7 +45,7 @@ class Square extends React.Component {
   makeNote(n) {
     let content = this.state.notes[n] ? `${n}` : NBSP;
     return (
-      <div className='note'>{content}</div>
+      <div className='note' key={`note-${n}`}>{content}</div>
     );
   }
 
@@ -126,15 +126,15 @@ class Board extends React.Component {
     let style = value ? 'locked' : '';
 
     return  (
-      <Square style={style} value={value} row={row} column={column}/>
+      <Square style={style} value={value} row={row} column={column} key={row*9 + column}/>
     );
   }
 
-  makeRow(squares) {
+  makeRow(squares, row) {
     let className = 'board-row';
 
     return (
-      <div className={className}>
+      <div className={className} key={`row-${row}`}>
         {squares}
       </div>
     );
@@ -148,7 +148,7 @@ class Board extends React.Component {
       for (j = 0; j < 9; j += 1) {
         squares.push(this.makeSquare(this.state.grid[i * 9 + j], i, j));
       }
-      rows.push(this.makeRow(squares));
+      rows.push(this.makeRow(squares, i));
     }
 
     return (
@@ -156,6 +156,38 @@ class Board extends React.Component {
         {rows}
       </div>
     );
+  }
+
+  getRow(index) {
+    let lbound = 9 * index;
+    let ubound = lbound + 9;
+
+    return this.state.grid.slice(lbound, ubound);
+  }
+
+  getColumn(index) {
+    let column = [];
+    for (let i = 0; i < 9; i += 1) {
+      column.push(this.state.grid[i*9 + index]);
+    }
+
+    return column;
+  }
+
+  getNonant(index) {
+    let nonant = [];
+
+    let anchors = [0, 3, 6, 27, 30, 33, 54, 57, 60];
+    let anchor = anchors[index];
+
+    for (let x = 0; x < 3; x += 1) {
+      for (let y = 0; y < 3; y += 1) {
+        let cell = (anchor + 9 * x) + y;
+
+        nonant.push(this.state.grid[cell]);
+      }
+    }
+    return nonant;
   }
 }
 Board.propTypes = {
