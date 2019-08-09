@@ -46,18 +46,9 @@ body {
   font-size: 0.75rem;
 }
 
-.board-row.nonant-border .square {
-  border-bottom: 2px solid black;
+.square.nonant-right {
+  border-right: 3px solid black;
 }
-
-.board-row.nonant-border + .board-row .square {
-  border-top: 2px solid black;
-}
-
-.square.nonant-border {
-  border-right: 2px solid black;
-}
-
-.square.nonant-border + .square {
-  border-left: 2px solid black;
+.square.nonant-bottom {
+  border-bottom: 3px solid black;
 }

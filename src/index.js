@@ -63,12 +63,25 @@ class Square extends React.Component {
     ];
   }
 
+  makeClassName() {
+    let classes = ['square'];
+
+    if (this.state.locked) {
+      classes.push('locked');
+    }
+
+    if (this.props.column === 2 || this.props.column === 5) {
+      classes.push('nonant-right');
+    }
+    if (this.props.row === 2 || this.props.row === 5) {
+      classes.push('nonant-bottom');
+    }
+
+    return classes.join(' ');
+  }
+
   render() {
     let content;
-    let classNames = `square ${this.state.locked ? 'locked' : ''}`;
-    if (this.props.column === 2 || this.props.column == 5) {
-      classNames += ' nonant-border';
-    }
 
     if (this.state.value) {
       content = this.makeNumber();
@@ -76,12 +89,13 @@ class Square extends React.Component {
       content = this.makeNotes();
     }
 
-    return <div className={classNames}>{content}</div>;
+    return <div className={this.makeClassName()}>{content}</div>;
   }
 }
 Square.propTypes = {
   value: PropTypes.number,
   locked: PropTypes.bool,
+  row: PropTypes.number,
   column: PropTypes.number
 };
 Square.defaultProps = {
@@ -108,20 +122,16 @@ class Board extends React.Component {
     };
   }
 
-  makeSquare(value, number) {
+  makeSquare(value, row, column) {
     let style = value ? 'locked' : '';
 
     return  (
-      <Square style={style} value={value} column={number}/>
+      <Square style={style} value={value} row={row} column={column}/>
     );
   }
 
-  makeRow(squares, number) {
+  makeRow(squares) {
     let className = 'board-row';
-
-    if (number === 2 || number === 5) {
-      className += ' nonant-border';
-    }
 
     return (
       <div className={className}>
@@ -136,9 +146,9 @@ class Board extends React.Component {
     for (i = 0; i < 9; i += 1) {
       let squares = [];
       for (j = 0; j < 9; j += 1) {
-        squares.push(this.makeSquare(this.state.grid[i * 9 + j], j));
+        squares.push(this.makeSquare(this.state.grid[i * 9 + j], i, j));
       }
-      rows.push(this.makeRow(squares, i));
+      rows.push(this.makeRow(squares));
     }
 
     return (
