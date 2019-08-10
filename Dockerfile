@@ -8,4 +8,4 @@ RUN npm install
 COPY src/* /app/src/
 COPY public/* /app/public/
 
-CMD ["npm start"]
+CMD ["npm", "start"]

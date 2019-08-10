@@ -7,7 +7,13 @@ The purpose of this app is twofold: for Mike to learn ReactJS and practice his f
 ### build
 
 ```bash
-npm run build
+docker-compose exec dev npm build
+```
+
+or
+
+```bash
+./bin/build.sh
 ```
 
 Builds the app for production to the `build` folder.
@@ -21,7 +27,13 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### test
 
 ```bash
-npm test
+docker-compose exec dev npm test
+```
+
+or
+
+```bash
+./bin/test.sh
 ```
 
 Launches the test runner in the interactive watch mode.
@@ -30,20 +42,27 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 ### run dev server
 
 ```bash
-npm start
+docker-compose up
 ```
 
-Runs the app in the development mode.
+Runs the app in a container, in development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.
 You will also see any lint errors in the console.
 
+If you make any changes to the Dockerfile, or add dependencies, you'll need to re-build the container:
+
+```bash
+docker-compose build
+```
+
 ## TODO
 
 - [x] separate the nonants visually
 - [x] import board state
-- [ ] containerize
+- [x] containerize
+- [ ] tests
 - [ ] Auto-note
 - [ ] select square + highlights
 - [ ] highlight all of #
