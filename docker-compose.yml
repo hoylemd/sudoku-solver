@@ -1,0 +1,11 @@
+version: '3'
+services:
+  dev:
+    build: .
+    container_name: dev
+    volumes:
+      - ./src:/app/src
+    stdin_open: true
+    tty: true
+    ports:
+      - 3000:3000
