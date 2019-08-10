@@ -6,6 +6,7 @@ The purpose of this app is twofold: for Mike to learn ReactJS and practice his f
 
 - [x] separate the nonants visually
 - [x] import board state
+- [ ] containerize
 - [ ] Auto-note
 - [ ] select square + highlights
 - [ ] highlight all of #
